@@ -2,6 +2,10 @@
 
 A React Native chat application built with Expo Router, featuring a clean and modern UI with haptic feedback and smooth navigation.
 
+## Demo
+
+![App Demo](./assets/gifs/demo.gif)
+
 ## Features
 
 - **Chat Interface**: Full-featured chat with message history and real-time updates
