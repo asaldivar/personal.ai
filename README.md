@@ -147,6 +147,7 @@ For complete setup instructions, see [OTA_SETUP.md](./OTA_SETUP.md).
 ## If I had more time
 
 - I would remove hardcoded styles
-- write more tests
+- clean up and organize the code more
+- would have completed tests
 - create a better layout for the UI
 - implement better styling for the Chat page
