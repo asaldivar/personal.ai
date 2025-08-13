@@ -157,6 +157,25 @@ export const useChat = () => {
     }
   };
 
+  // Send a new message
+  const sendMessage = (text: string) => {
+    const newMessage: ChatMessage = {
+      id: `msg-${Date.now()}-${Math.random()}`,
+      text,
+      sender: 'user',
+      timestamp: new Date(),
+    };
+
+    // For now, we'll just add the message to the local state
+    // In a real app, you'd send this to your API
+    // You might want to use React Query's mutation or optimistic updates here
+    console.log('Sending message:', newMessage);
+
+    // TODO: Implement actual message sending logic
+    // This could involve calling an API endpoint and then invalidating the query
+    // or using optimistic updates
+  };
+
   return {
     messages,
     hasMore: hasNextPage ?? false,
@@ -165,5 +184,6 @@ export const useChat = () => {
     error,
     isFetchingNextPage,
     loadOlderMessages,
+    sendMessage,
   };
 };

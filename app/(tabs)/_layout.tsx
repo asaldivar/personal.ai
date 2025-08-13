@@ -16,20 +16,22 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colorScheme === 'dark' ? '#9CA3AF' : '#6B7280', // Subtle gray
         headerShown: false,
         tabBarBackground: TabBarBackground,
+        tabBarHideOnKeyboard: true, // Hide tab bar when keyboard is open
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
-            height: 90, // Ensure consistent height
-            paddingBottom: 20, // Account for home indicator
+            height: 60, // Reduced height
+            paddingBottom: 10, // Reduced padding
+            bottom: 0,
           },
           android: {
-            height: 70,
-            paddingBottom: 10,
+            height: 60, // Reduced height
+            paddingBottom: 5, // Reduced padding
           },
           default: {
-            height: 70,
-            paddingBottom: 10,
+            height: 60, // Reduced height
+            paddingBottom: 5, // Reduced padding
           },
         }),
       }}

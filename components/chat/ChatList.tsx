@@ -73,7 +73,7 @@ export const ChatList: React.FC = () => {
   };
 
   return (
-    <View className="flex-1 px-4 py-2 pb-20 min-h-full">
+    <View className="flex-1 px-4 py-2">
       <FlatList
         ref={listRef}
         data={messages}
