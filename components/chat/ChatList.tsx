@@ -15,7 +15,6 @@ export const ChatList: React.FC = () => {
     isFetchingNextPage,
     loadOlderMessages,
   } = useChat();
-
   const listRef = useRef<FlatList<ChatMessageType>>(null);
 
   const handleLoadOlderMessages = () => {

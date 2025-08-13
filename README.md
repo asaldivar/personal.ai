@@ -146,7 +146,6 @@ For complete setup instructions, see [OTA_SETUP.md](./OTA_SETUP.md).
 
 ## If I had more time
 
-- finish the chat
 - I would remove hardcoded styles
 - clean up and organize the code more
 - would have completed tests

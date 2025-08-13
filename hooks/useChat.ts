@@ -1,5 +1,5 @@
 import { ChatMessage, ChatResponse } from '@/types/chat';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 
 // Generate fake chat data
 const generateFakeMessages = (
@@ -129,6 +129,8 @@ const fetchChatMessages = async (
 };
 
 export const useChat = () => {
+  const queryClient = useQueryClient();
+
   const {
     data,
     fetchNextPage,
@@ -146,10 +148,6 @@ export const useChat = () => {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  // Combine all pages into a single messages array
-  const messages =
-    data?.pages.flatMap((page: ChatResponse) => page.messages) || [];
-
   // Load older messages
   const loadOlderMessages = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -166,15 +164,28 @@ export const useChat = () => {
       timestamp: new Date(),
     };
 
-    // For now, we'll just add the message to the local state
-    // In a real app, you'd send this to your API
-    // You might want to use React Query's mutation or optimistic updates here
-    console.log('Sending message:', newMessage);
+    // Add the new message directly to the React Query cache
+    queryClient.setQueryData(['chat-messages'], (oldData: any) => {
+      if (!oldData) return oldData;
 
-    // TODO: Implement actual message sending logic
-    // This could involve calling an API endpoint and then invalidating the query
-    // or using optimistic updates
+      // Create a new page with just the new message
+      const newPage: ChatResponse = {
+        messages: [newMessage],
+        hasMore: true,
+        nextCursor: undefined,
+      };
+
+      // Add the new page to the beginning of the pages array
+      return {
+        ...oldData,
+        pages: [newPage, ...oldData.pages],
+      };
+    });
   };
+
+  // Combine all pages into a single messages array
+  const messages =
+    data?.pages.flatMap((page: ChatResponse) => page.messages) || [];
 
   return {
     messages,
