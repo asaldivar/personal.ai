@@ -1,52 +1,152 @@
-# Welcome to your Expo app 👋
+# Chat App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native chat application built with Expo Router, featuring a clean and modern UI with haptic feedback and smooth navigation.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Chat Interface**: Full-featured chat with message history and real-time updates
+- **Tab Navigation**: Clean tab-based navigation using Expo Router
+- **Theme Support**: Light and dark mode support
+- **Splash Screen**: Smooth loading experience with expo-splash-screen
+- **Deep Linking**: Support for deep links and external URL handling
+- **App Configuration**: Centralized app configuration using expo-constants
+- **OTA Updates**: Over-the-air updates using EAS (Expo Application Services)
 
-   ```bash
-   npm install
-   ```
+## New Utilities Added
 
-2. Start the app
+### App Configuration (`constants/App.ts`)
 
-   ```bash
-   npx expo start
-   ```
+Access app version, build number, platform info, and environment-specific values:
 
-In the output, you'll find options to open the app in a
+```typescript
+import { AppConfig, getEnvValue } from '@/constants/App';
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+// Get app version and build number
+console.log(`Version: ${AppConfig.version}, Build: ${AppConfig.buildNumber}`);
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+// Get environment-specific values
+const apiUrl = getEnvValue(
+  'http://localhost:3000',
+  'https://api.production.com',
+);
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Linking Utilities (`utils/linking.ts`)
 
-## Learn more
+Handle deep links, external URLs, and app settings:
 
-To learn more about developing your project with Expo, look at the following resources:
+```typescript
+import { openExternalURL, openAppSettings } from '@/utils/linking';
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+// Open external URL
+await openExternalURL('https://example.com');
 
-## Join the community
+// Open app settings
+await openAppSettings();
+```
 
-Join our community of developers creating universal apps.
+## Project Structure
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```
+Chat/
+├── app/                    # Expo Router app directory
+│   ├── (tabs)/           # Tab navigation
+│   │   ├── index.tsx     # Home screen
+│   │   ├── chat.tsx      # Chat tab
+│   │   └── _layout.tsx   # Tab layout
+│   └── _layout.tsx       # Root layout
+├── components/            # Reusable components
+│   ├── chat/             # Chat-specific components
+│   ├── ui/               # UI components
+│   └── ...               # Other components
+├── constants/             # App constants and configuration
+├── hooks/                 # Custom React hooks
+├── services/              # API services
+├── types/                 # TypeScript type definitions
+└── utils/                 # Utility functions
+```
 
-# Test complete workflow
+## Getting Started
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   pnpm start
+   ```
+
+3. Run on your preferred platform:
+   ```bash
+   pnpm ios      # iOS simulator
+   pnpm android  # Android emulator
+   pnpm web      # Web browser
+   ```
+
+## Available Scripts
+
+- `pnpm start` - Start the Expo development server
+- `pnpm ios` - Run on iOS simulator
+- `pnpm android` - Run on Android emulator
+- `pnpm web` - Run in web browser
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Fix ESLint issues automatically
+- `pnpm format` - Format code with Prettier
+
+## Dependencies
+
+### Core
+
+- **Expo**: ~53.0.20
+- **React Native**: 0.79.5
+- **React**: 19.0.0
+- **Expo Router**: ~5.1.4
+
+### UI & Navigation
+
+- **@expo/vector-icons**: ^14.1.0
+- **@react-navigation/native**: ^7.1.6
+- **@shopify/flash-list**: ^2.0.2
+
+### State Management
+
+- **@tanstack/react-query**: ^5.85.0
+
+### Utilities
+
+- **expo-constants**: ~17.1.7
+- **expo-linking**: ~7.1.7
+- **expo-splash-screen**: ~0.30.10
+- **expo-updates**: ~0.24.0
+
+## Development
+
+The app uses:
+
+- **TypeScript** for type safety
+- **ESLint** for code quality
+- **Prettier** for code formatting
+- **Husky** for git hooks
+
+## Notes
+
+- All remaining warnings are style preferences (color literals, TypeScript any types)
+- The app maintains full functionality while being more maintainable
+- OTA updates are configured and ready to use (see `OTA_SETUP.md` for complete setup)
+
+## OTA Updates
+
+Your app is now configured for Over-The-Air updates using EAS (Expo Application Services), following the [official Expo documentation](https://docs.expo.dev/deploy/send-over-the-air-updates/#get-started). Updates are checked automatically when the app starts and applied seamlessly.
+
+For complete setup instructions, see [OTA_SETUP.md](./OTA_SETUP.md).
+
+## If I had more time
+
+- I would remove hardcoded styles
+- write more tests
+- create a better layout for the UI
+- implement better styling for the Chat page
